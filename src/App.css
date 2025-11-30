@@ -19,3 +19,25 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.search-box {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.search-box span {
+  color: #666;
+  font-size: 14px;
+}

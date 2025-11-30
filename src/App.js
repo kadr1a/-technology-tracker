@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import TechnologyCard from './components/TechnologyCard';
 import ProgressHeader from './components/ProgressHeader';
 import QuickActions from './components/QuickActions';
 import FilterButtons from './components/FilterButtons';
-import Counter from './components/Counter';
-import RegistrationForm from './components/RegistrationForm';
-import ColorPicker from './components/ColorPicker';
+import WindowSizeTracker from './components/WindowSizeTracker';
+import UserProfile from './components/UserProfile';
+import ContactForm from './components/ContactForm';
 
 function App() {
     const [technologies, setTechnologies] = useState([
@@ -14,23 +14,38 @@ function App() {
             id: 1,
             title: 'React Components',
             description: 'Изучение базовых компонентов',
-            status: 'not-started'
+            status: 'not-started',
+            notes: ''
         },
         {
             id: 2,
             title: 'JSX Syntax',
             description: 'Освоение синтаксиса JSX',
-            status: 'not-started'
+            status: 'not-started',
+            notes: ''
         },
         {
             id: 3,
             title: 'State Management',
             description: 'Работа с состоянием компонентов',
-            status: 'not-started'
+            status: 'not-started',
+            notes: ''
         }
     ]);
 
     const [activeFilter, setActiveFilter] = useState('all');
+    const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
+        const saved = localStorage.getItem('techTrackerData');
+        if (saved) {
+            setTechnologies(JSON.parse(saved));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('techTrackerData', JSON.stringify(technologies));
+    }, [technologies]);
 
     const updateTechnologyStatus = (id) => {
         setTechnologies(prevTech =>
@@ -43,6 +58,14 @@ function App() {
                 }
                 return tech;
             })
+        );
+    };
+
+    const updateTechnologyNotes = (techId, newNotes) => {
+        setTechnologies(prevTech =>
+            prevTech.map(tech =>
+                tech.id === techId ? { ...tech, notes: newNotes } : tech
+            )
         );
     };
 
@@ -67,19 +90,17 @@ function App() {
     };
 
     const filteredTechnologies = technologies.filter(tech => {
-        switch (activeFilter) {
-            case 'not-started': return tech.status === 'not-started';
-            case 'in-progress': return tech.status === 'in-progress';
-            case 'completed': return tech.status === 'completed';
-            default: return true;
-        }
+        const matchesFilter = activeFilter === 'all' || tech.status === activeFilter;
+        const matchesSearch = tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            tech.description.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesFilter && matchesSearch;
     });
 
     return (
         <div className="App">
-            <Counter />
-            <RegistrationForm />
-            <ColorPicker />
+            <WindowSizeTracker />
+            <UserProfile />
+            <ContactForm />
             <ProgressHeader technologies={technologies} />
             <QuickActions
                 onMarkAllCompleted={markAllAsCompleted}
@@ -91,6 +112,15 @@ function App() {
                 onFilterChange={setActiveFilter}
                 technologies={technologies}
             />
+            <div className="search-box">
+                <input
+                    type="text"
+                    placeholder="Поиск технологий..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <span>Найдено: {filteredTechnologies.length}</span>
+            </div>
             <div className="technology-list">
                 {filteredTechnologies.map(tech => (
                     <TechnologyCard
@@ -99,7 +129,9 @@ function App() {
                         title={tech.title}
                         description={tech.description}
                         status={tech.status}
+                        notes={tech.notes}
                         onStatusChange={updateTechnologyStatus}
+                        onNotesChange={updateTechnologyNotes}
                     />
                 ))}
             </div>

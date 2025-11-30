@@ -1,7 +1,8 @@
 import React from 'react';
 import './TechnologyCard.css';
+import TechnologyNotes from './TechnologyNotes';
 
-function TechnologyCard({ id, title, description, status, onStatusChange }) {
+function TechnologyCard({ id, title, description, status, notes, onStatusChange, onNotesChange }) {
     const handleClick = () => {
         onStatusChange(id);
     };
@@ -25,6 +26,11 @@ function TechnologyCard({ id, title, description, status, onStatusChange }) {
             <div className="status-indicator">
                 Статус: {getStatusText()}
             </div>
+            <TechnologyNotes
+                notes={notes}
+                onNotesChange={onNotesChange}
+                techId={id}
+            />
         </div>
     );
 }

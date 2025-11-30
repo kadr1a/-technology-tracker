@@ -1,0 +1,37 @@
+.user-profile {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.user-profile h2 {
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.user-info p {
+    margin: 8px 0;
+    color: #555;
+}
+
+.user-profile.loading,
+.user-profile.error {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.user-profile.error button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-profile.error button:hover {
+    background-color: #0056b3;
+}
