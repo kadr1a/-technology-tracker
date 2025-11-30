@@ -4,19 +4,26 @@
     padding: 16px;
     margin: 10px 0;
     background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.technology-card.completed {
+.technology-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.technology-card.status-completed {
     border-color: #4caf50;
     background-color: #e8f5e9;
 }
 
-.technology-card.in-progress {
+.technology-card.status-in-progress {
     border-color: #ff9800;
     background-color: #fff3e0;
 }
 
-.technology-card.not-started {
+.technology-card.status-not-started {
     border-color: #f44336;
     background-color: #ffebee;
 }
@@ -25,3 +32,7 @@
     margin-top: 10px;
     font-weight: bold;
 }
+
+.status-not-started { border-left-color: #ff6b6b; }
+.status-in-progress { border-left-color: #4ecdc4; }
+.status-completed { border-left-color: #45b7d1; }
