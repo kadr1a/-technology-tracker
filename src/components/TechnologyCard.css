@@ -1,0 +1,27 @@
+.technology-card {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+}
+
+.technology-card.completed {
+    border-color: #4caf50;
+    background-color: #e8f5e9;
+}
+
+.technology-card.in-progress {
+    border-color: #ff9800;
+    background-color: #fff3e0;
+}
+
+.technology-card.not-started {
+    border-color: #f44336;
+    background-color: #ffebee;
+}
+
+.status-indicator {
+    margin-top: 10px;
+    font-weight: bold;
+}

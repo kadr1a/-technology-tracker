@@ -1,0 +1,17 @@
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.technology-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+body {
+  margin: 0;
+  background-color: #f5f5f5;
+}
